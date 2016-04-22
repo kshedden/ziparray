@@ -105,3 +105,43 @@ func Test_float64sub(t *testing.T) {
 		}
 	}
 }
+
+func Test_string(t *testing.T) {
+
+	avec := []string{"cat", "dog", "apple"}
+	err := WriteStringArray(avec, "test.bin.gz")
+	if err != nil {
+		panic(err)
+	}
+
+	bvec, err := ReadStringArray("test.bin.gz")
+	if err != nil {
+		panic(err)
+	}
+
+	for k, v := range avec {
+		if bvec[k] != v {
+			t.Fail()
+		}
+	}
+}
+
+func Test_stringsub(t *testing.T) {
+
+	avec := []string{"cat", "dog", "apple", "banana", "peach", "melon"}
+	err := WriteStringArray(avec, "test.bin.gz")
+	if err != nil {
+		panic(err)
+	}
+
+	bvec, err := ReadStringSubArray("test.bin.gz", 1, 4)
+	if err != nil {
+		panic(err)
+	}
+
+	for k, v := range avec[1:4] {
+		if bvec[k] != v {
+			t.Fail()
+		}
+	}
+}
