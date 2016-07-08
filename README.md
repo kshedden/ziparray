@@ -5,7 +5,7 @@ slice types is supported: `[]float64`, `[]int64`, and `[]string`.
 Example of writing a `[]int64` slice named `vec`:
 
 ```
-err := WriteInt64Array(vec, "file.bin.gz")
+err := ziparray.WriteInt64Array(vec, "file.bin.gz")
 if err != nil {
  	  panic(err)
 }
@@ -14,7 +14,7 @@ if err != nil {
 Example of reading a `[]int64` slice named `vec`:
 
 ```
-vec, err := ReadInt64Array("file.bin.gz")
+vec, err := ziparray.ReadInt64Array("file.bin.gz")
 if err != nil {
  	  panic(err)
 }
