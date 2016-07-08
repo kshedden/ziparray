@@ -19,3 +19,7 @@ if err != nil {
  	  panic(err)
 }
 ```
+
+The data are read and written in native binary format without any
+meta-data.  The user is responsible for ensuring that the data have
+the proper type.
