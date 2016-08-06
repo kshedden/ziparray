@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func Test_int64(t *testing.T) {
+func TestInt64(t *testing.T) {
 
 	m := 100
 	vec := make([]int64, m)
@@ -12,12 +12,12 @@ func Test_int64(t *testing.T) {
 		vec[k] = int64(k)
 	}
 
-	err := WriteInt64Array(vec, "test.bin.gz")
+	err := WriteInt64(vec, "test.bin.gz")
 	if err != nil {
 		panic(err)
 	}
 
-	x, err := ReadInt64Array("test.bin.gz")
+	x, err := ReadInt64("test.bin.gz")
 	if err != nil {
 		panic(err)
 	}
@@ -29,7 +29,7 @@ func Test_int64(t *testing.T) {
 	}
 }
 
-func Test_int64sub(t *testing.T) {
+func TestInt64Part(t *testing.T) {
 
 	m := 100
 	vec := make([]int64, m)
@@ -37,12 +37,12 @@ func Test_int64sub(t *testing.T) {
 		vec[k] = int64(k)
 	}
 
-	err := WriteInt64Array(vec, "test.bin.gz")
+	err := WriteInt64(vec, "test.bin.gz")
 	if err != nil {
 		panic(err)
 	}
 
-	x, err := ReadInt64SubArray("test.bin.gz", 3, 6)
+	x, err := ReadInt64Part("test.bin.gz", 3, 6)
 	if err != nil {
 		panic(err)
 	}
@@ -55,7 +55,7 @@ func Test_int64sub(t *testing.T) {
 	}
 }
 
-func Test_float64(t *testing.T) {
+func TestFloat64(t *testing.T) {
 
 	m := 100
 	vec := make([]float64, m)
@@ -63,12 +63,12 @@ func Test_float64(t *testing.T) {
 		vec[k] = float64(k)
 	}
 
-	err := WriteFloat64Array(vec, "test.bin.gz")
+	err := WriteFloat64(vec, "test.bin.gz")
 	if err != nil {
 		panic(err)
 	}
 
-	x, err := ReadFloat64Array("test.bin.gz")
+	x, err := ReadFloat64("test.bin.gz")
 	if err != nil {
 		panic(err)
 	}
@@ -80,7 +80,7 @@ func Test_float64(t *testing.T) {
 	}
 }
 
-func Test_float64sub(t *testing.T) {
+func TestFloat64Part(t *testing.T) {
 
 	m := 100
 	vec := make([]float64, m)
@@ -88,12 +88,12 @@ func Test_float64sub(t *testing.T) {
 		vec[k] = float64(k)
 	}
 
-	err := WriteFloat64Array(vec, "test.bin.gz")
+	err := WriteFloat64(vec, "test.bin.gz")
 	if err != nil {
 		panic(err)
 	}
 
-	x, err := ReadFloat64SubArray("test.bin.gz", 2, 7)
+	x, err := ReadFloat64Part("test.bin.gz", 2, 7)
 	if err != nil {
 		panic(err)
 	}
@@ -106,15 +106,15 @@ func Test_float64sub(t *testing.T) {
 	}
 }
 
-func Test_string(t *testing.T) {
+func TestString(t *testing.T) {
 
 	avec := []string{"cat", "dog", "apple"}
-	err := WriteStringArray(avec, "test.bin.gz")
+	err := WriteString(avec, "test.bin.gz")
 	if err != nil {
 		panic(err)
 	}
 
-	bvec, err := ReadStringArray("test.bin.gz")
+	bvec, err := ReadString("test.bin.gz")
 	if err != nil {
 		panic(err)
 	}
@@ -126,15 +126,15 @@ func Test_string(t *testing.T) {
 	}
 }
 
-func Test_stringsub(t *testing.T) {
+func TestStringPart(t *testing.T) {
 
 	avec := []string{"cat", "dog", "apple", "banana", "peach", "melon"}
-	err := WriteStringArray(avec, "test.bin.gz")
+	err := WriteString(avec, "test.bin.gz")
 	if err != nil {
 		panic(err)
 	}
 
-	bvec, err := ReadStringSubArray("test.bin.gz", 1, 4)
+	bvec, err := ReadStringPart("test.bin.gz", 1, 4)
 	if err != nil {
 		panic(err)
 	}

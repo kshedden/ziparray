@@ -6,9 +6,9 @@ import (
 	"os"
 )
 
-// WriteFloat64ArrayStream writes an array of float64 values to a gzip
+// WriteFloat64Stream writes an array of float64 values to a gzip
 // stream in native format.
-func WriteFloat64ArrayStream(vec []float64, stream *gzip.Writer) error {
+func WriteFloat64Stream(vec []float64, stream *gzip.Writer) error {
 
 	for _, x := range vec {
 		err := binary.Write(stream, binary.LittleEndian, x)
@@ -20,9 +20,8 @@ func WriteFloat64ArrayStream(vec []float64, stream *gzip.Writer) error {
 	return nil
 }
 
-// WriteFloat64Array writes an array to a file in compressed binary
-// format.
-func WriteFloat64Array(vec []float64, fname string) error {
+// WriteFloat64 writes an array to a file in compressed binary format.
+func WriteFloat64(vec []float64, fname string) error {
 
 	fid, err := os.Create(fname)
 	if err != nil {
@@ -32,12 +31,40 @@ func WriteFloat64Array(vec []float64, fname string) error {
 	gid := gzip.NewWriter(fid)
 	defer gid.Close()
 
-	return WriteFloat64ArrayStream(vec, gid)
+	return WriteFloat64Stream(vec, gid)
 }
 
-// WriteInt64ArrayStream writes an array of int64 values to a gzip stream in
+// WriteInt64Stream writes an array of int64 values to a gzip stream
+// in native little endian format.
+func WriteInt64Stream(vec []int64, stream *gzip.Writer) error {
+
+	for _, x := range vec {
+		err := binary.Write(stream, binary.LittleEndian, x)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+// WriteInt64 writes an array to a file in compressed binary format.
+func WriteInt64(vec []int64, fname string) error {
+
+	fid, err := os.Create(fname)
+	if err != nil {
+		return err
+	}
+	defer fid.Close()
+	gid := gzip.NewWriter(fid)
+	defer gid.Close()
+
+	return WriteInt64Stream(vec, gid)
+}
+
+// WriteInt8Stream writes an array of int8 values to a gzip stream in
 // native little endian format.
-func WriteInt64ArrayStream(vec []int64, stream *gzip.Writer) error {
+func WriteInt8Stream(vec []int8, stream *gzip.Writer) error {
 
 	for _, x := range vec {
 		err := binary.Write(stream, binary.LittleEndian, x)
@@ -49,9 +76,8 @@ func WriteInt64ArrayStream(vec []int64, stream *gzip.Writer) error {
 	return nil
 }
 
-// WriteInt64Array writes an array to a file in compressed binary
-// format.
-func WriteInt64Array(vec []int64, fname string) error {
+// WriteInt8 writes an array to a file in compressed binary format.
+func WriteInt8(vec []int8, fname string) error {
 
 	fid, err := os.Create(fname)
 	if err != nil {
@@ -61,11 +87,12 @@ func WriteInt64Array(vec []int64, fname string) error {
 	gid := gzip.NewWriter(fid)
 	defer gid.Close()
 
-	return WriteInt64ArrayStream(vec, gid)
+	return WriteInt8Stream(vec, gid)
 }
 
-// WriteStringArrayStream writes an array of strings to a gzip stream.
-func WriteStringArrayStream(vec []string, stream *gzip.Writer) error {
+// WriteStringStream writes an array of strings to a gzip stream.  The
+// strings are delimited by newline characters.
+func WriteStringStream(vec []string, stream *gzip.Writer) error {
 
 	for _, x := range vec {
 		_, err := stream.Write([]byte(x + "\n"))
@@ -77,9 +104,9 @@ func WriteStringArrayStream(vec []string, stream *gzip.Writer) error {
 	return nil
 }
 
-// WriteStringArray writes an array of strings to a file in compressed
+// WriteString writes an array of strings to a file in compressed
 // binary format.
-func WriteStringArray(vec []string, fname string) error {
+func WriteString(vec []string, fname string) error {
 
 	fid, err := os.Create(fname)
 	if err != nil {
@@ -89,5 +116,5 @@ func WriteStringArray(vec []string, fname string) error {
 	gid := gzip.NewWriter(fid)
 	defer gid.Close()
 
-	return WriteStringArrayStream(vec, gid)
+	return WriteStringStream(vec, gid)
 }
